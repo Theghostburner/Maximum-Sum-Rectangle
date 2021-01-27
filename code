@@ -38,7 +38,8 @@ int maxRect(int ** arr,int row,int col)
             {
                 max =pa;
             }   
-        }    
+        } 
+        delete [] sum;
     }
     return max;
 }
