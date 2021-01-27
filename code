@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+using namespace std;
+int kagane(int* sum,int n)
+{
+    int currentSum = 0;
+    int max = INT_MIN;
+    for(int i=0;i<n;i++)
+    {
+        currentSum+=sum[i];
+        
+        if(currentSum>max)
+        {
+            max = currentSum;
+        }
+        if(currentSum<0)
+        {
+            currentSum = 0;
+        }
+    }
+    return max;
+}
+int maxRect(int ** arr,int row,int col)
+{
+    int max = INT_MIN;
+    for(int i=0;i<col;i++)
+    {
+        int left = i;
+        int* sum = new int[row]();
+        for(int j=left;j<col;j++)
+        {
+            int right = j;
+            for(int l=0;l<row;l++)
+            {
+                sum[l]+=arr[l][right];
+            }
+            int pa = kagane(sum,row);
+            if(pa>max)
+            {
+                max =pa;
+            }   
+        }    
+    }
+    return max;
+}
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    int ** arr = new int*[n];
+    for(int i=0;i<n;i++)
+    {
+        arr[i] = new int[m];
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+    int ans = maxRect(arr,n,m);
+    for(int i=0;i<n;i++)
+    {
+        delete[] arr[i];
+    }
+    delete [] arr;
+    cout<<ans;
+    return 0;
+}
